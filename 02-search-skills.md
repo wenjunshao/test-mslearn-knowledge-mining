@@ -118,27 +118,9 @@ This step guides you through using Azure CLI commands from Visual Studio Code to
     RG_NAME=rg-learn-work-with-postgresql-$REGION
     ```
 
-    The final command randomly generates a password for the PostgreSQL admin sign-in. Make sure you copy it to a safe place so that you can use it later to connect to your PostgreSQL flexible server.
+    Setting the PostgreSQL admin password is pgAdminPASSWORD, where `$ADMIN_PASSWORD` is the location you specified.
 
-    ```bash
-    #!/bin/bash
-    
-    # Define array of allowed characters explicitly
-    chars=( {a..z} {A..Z} {0..9} '!' '@' '#' '$' '%' '^' '&' '*' '(' ')' '_' '+' )
-    
-    a=()
-    for ((i = 0; i < 100; i++)); do
-        rand_char=${chars[$RANDOM % ${#chars[@]}]}
-        a+=("$rand_char")
-    done
-    
-    # Join first 18 characters without delimiter
-    ADMIN_PASSWORD=$(IFS=; echo "${a[*]:0:18}")
-    
-    echo "Your randomly generated PostgreSQL admin user's password is:"
-    echo "$ADMIN_PASSWORD"
-    echo "Please copy it to a safe place, as you will need it later to connect to your PostgreSQL flexible server."
-    ```
+   
 
 1. (Skip if using your default subscription.) If you have access to more than one Azure subscription, and your default subscription *isn't* the one in which you want to create the resource group and other resources for this exercise, run this command to set the appropriate subscription, replacing the `<subscriptionName|subscriptionId>` token with either the name or ID of the subscription you want to use:
 
