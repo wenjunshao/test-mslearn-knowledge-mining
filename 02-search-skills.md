@@ -85,7 +85,7 @@ This step guides you through using Azure CLI commands from Visual Studio Code to
     RG_NAME=rg-learn-work-with-postgresql-$REGION
     ```
 
-    Setting the PostgreSQL admin password is pgAdmin123PASSWORD, where `$ADMIN_PASSWORD` is the location you specified.
+    The following command assigns PostgreSQL admin password, where `$ADMIN_PASSWORD` is the location you specified.
 
     ```bash
     ADMIN_PASSWORD=pgAdmin123PASSWORD
