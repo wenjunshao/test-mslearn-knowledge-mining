@@ -63,13 +63,6 @@ This step guides you through using Azure CLI commands from Visual Studio Code to
 
     > &#128221; You can close the **powershell** terminal window if you want to, but it is not necessary. You can have multiple terminal windows open at the same time.
 
-1. In the terminal window, run the following command to sign-in to your Azure account:
-
-    ```bash
-    az login
-    ```
-
-    This command opens a new browser window prompting you to sign-in to your Azure account. After logging in, return to the terminal window.
 
 1. Next, you run three commands to define variables to reduce redundant typing when using Azure CLI commands to create Azure resources. The variables represent the name to assign to your resource group (`RG_NAME`), the Azure region (`REGION`) into which resources are deployed, and a randomly generated password for the PostgreSQL administrator sign-in (`ADMIN_PASSWORD`).
 
@@ -96,7 +89,7 @@ This step guides you through using Azure CLI commands from Visual Studio Code to
 1. (Skip if using your default subscription.) If you have access to more than one Azure subscription, and your default subscription *isn't* the one in which you want to create the resource group and other resources for this exercise, run this command to set the appropriate subscription, replacing the `<subscriptionName|subscriptionId>` token with either the name or ID of the subscription you want to use:
 
     ```azurecli
-    az account set --subscription 16b3c013-d300-468d-ac64-7eda0820b6d3
+    az account set --subscription 36b403cf-b8b6-4084-9c7c-26f0062388f5
     ```
 
 1. (Skip if you're using an existing resource group) Run the following Azure CLI command to create your resource group:
