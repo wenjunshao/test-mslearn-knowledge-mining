@@ -87,6 +87,10 @@ This step guides you through using Azure CLI commands from Visual Studio Code to
 
     Setting the PostgreSQL admin password is pgAdminPASSWORD, where `$ADMIN_PASSWORD` is the location you specified.
 
+    ```bash
+    ADMIN_PASSWORD=pgAdminPASSWORD
+    ```
+
    
 
 1. (Skip if using your default subscription.) If you have access to more than one Azure subscription, and your default subscription *isn't* the one in which you want to create the resource group and other resources for this exercise, run this command to set the appropriate subscription, replacing the `<subscriptionName|subscriptionId>` token with either the name or ID of the subscription you want to use:
