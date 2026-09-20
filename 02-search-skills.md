@@ -15,44 +15,11 @@ lab:
 
 In this exercise, you create a couple of stored procedures and execute them.
 
-## Before you start
-
-You need your own Azure subscription to complete this exercise. If you don't have an Azure subscription, you can create an [Azure free trial](https://azure.microsoft.com/free).
-
-Additionally, you need to have the following installed on your computer:
-
-- Visual Studio Code.
-- Postgres Visual Studio Code Extension by Microsoft.
-- Azure CLI.
-- Git.
 
 ## Create the exercise environment
 
 In this and later exercises, you use a Bicep script to deploy the Azure Database for PostgreSQL - Flexible Server and other resources into your Azure subscription. The Bicep scripts are located in the `/Allfiles/Labs/Shared` folder of the GitHub repository you cloned earlier.
 
-### Download and install Visual Studio Code and the PostgreSQL extension
-
-If you don't have Visual Studio Code installed:
-
-1. In a browser, navigate to [Download Visual Studio Code](https://code.visualstudio.com/download) and select the appropriate version for your operating system.
-
-1. Follow the installation instructions for your operating system.
-
-1. Open Visual Studio Code.
-
-1. From the left menu, select **Extensions** to display the Extensions panel.
-
-1. In the search bar, enter **PostgreSQL**. The PostgreSQL extension for Visual Studio Code icon is displayed. Make sure you select the one by Microsoft.
-
-1. Select **Install**. The extension installs.
-
-### Download and install Azure CLI and Git
-
-If you don't have Azure CLI or Git installed:
-
-1. In a browser, navigate to [Install the Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) and follow the instructions for your operating system.
-
-1. In a browser, navigate to [Download and install Git](https://git-scm.com/downloads) and follow the instructions for your operating system.
 
 ### Download the exercise files
 
