@@ -69,7 +69,7 @@ This step guides you through using Azure CLI commands from Visual Studio Code to
     In the first command, the region assigned to the corresponding variable is `eastus`, but you can also replace it with a location of your preference.
 
     ```bash
-    REGION=eastus
+    REGION=westus3
     ```
 
     The following command assigns the name to be used for the resource group that houses all the resources used in this exercise. The resource group name assigned to the corresponding variable is `rg-learn-work-with-postgresql-$REGION`, where `$REGION` is the location you previously specified. *However, you can change it to any other resource group name that suits your preference or that you might already have*.
