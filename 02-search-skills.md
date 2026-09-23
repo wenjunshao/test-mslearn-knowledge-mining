@@ -10,17 +10,6 @@ lab:
     - Azure
     - Azure Database for PostgreSQL
 ---
-
-# Create a stored procedure in Azure Database for PostgreSQL
-
-In this exercise, you create a couple of stored procedures and execute them.
-
-
-## Create the exercise environment
-
-In this and later exercises, you use a Bicep script to deploy the Azure Database for PostgreSQL - Flexible Server and other resources into your Azure subscription. The Bicep scripts are located in the `/Allfiles/Labs/Shared` folder of the GitHub repository you cloned earlier.
-
-
 ### Download the exercise files
 
 If you already cloned the GitHub repository containing the exercise files, *Skip downloading the exercise files*.
@@ -42,112 +31,7 @@ To download the exercise files, you clone the GitHub repository containing the e
 1. Follow the prompts to select a folder to clone the repository into. The repository is cloned into a folder named `mslearn-postgresql` in the location you selected.
 
 1. When asked if you want to open the cloned repository, select **Open**. The repository opens in Visual Studio Code.
-
-### Deploy resources into your Azure subscription
-
-If your Azure resources are already installed, *Skip deploying resources*.
-
-This step guides you through using Azure CLI commands from Visual Studio Code to create a resource group and run a Bicep script to deploy the Azure services necessary for completing this exercise into your Azure subscription.
-
-> &#128221; If you are doing multiple modules in this learning path, you can share the Azure environment between them. In that case, you only need to complete this resource deployment step once.
-
-1. Open Visual Studio Code if it isn't already open, and open the folder where you cloned the GitHub repository.
-
-1. Expand the **mslearn-postgresql** folder in the Explorer pane.
-
-1. Expand the **Allfiles/Labs/Shared** folder.
-
-1. Right-click the **Allfiles/Labs/Shared** folder and select **Open in Integrated Terminal**. This selection opens a terminal window at in the Visual Studio Code window.
-
-1. The terminal might open a **powershell** window by default. For this section of the lab, you want to use the **bash shell**. Besides the **+** icon, there's a dropdown arrow. Select it and select **Git Bash** or **Bash** from the list of available profiles. This selection opens a new terminal window with the **bash shell**.
-
-    > &#128221; You can close the **powershell** terminal window if you want to, but it is not necessary. You can have multiple terminal windows open at the same time.
-
-
-1. Next, you run three commands to define variables to reduce redundant typing when using Azure CLI commands to create Azure resources. The variables represent the name to assign to your resource group (`RG_NAME`), the Azure region (`REGION`) into which resources are deployed, and a randomly generated password for the PostgreSQL administrator sign-in (`ADMIN_PASSWORD`).
-
-    In the first command, the region assigned to the corresponding variable is `eastus`, but you can also replace it with a location of your preference.
-
-    ```bash
-    REGION=westus3
-    ```
-
-    The following command assigns the name to be used for the resource group that houses all the resources used in this exercise. The resource group name assigned to the corresponding variable is `rg-learn-work-with-postgresql-$REGION`, where `$REGION` is the location you previously specified. *However, you can change it to any other resource group name that suits your preference or that you might already have*.
-
-    ```bash
-    RG_NAME=rg-learn-work-with-postgresql-$REGION
-    ```
-
-    The following command assigns PostgreSQL admin password, where `$ADMIN_PASSWORD` is the location you specified.
-
-    ```bash
-    ADMIN_PASSWORD=pgAdmin123PASSWORD
-    ```
-
    
-
-1. (Skip if using your default subscription.) If you have access to more than one Azure subscription, and your default subscription *isn't* the one in which you want to create the resource group and other resources for this exercise, run this command to set the appropriate subscription, replacing the `<subscriptionName|subscriptionId>` token with either the name or ID of the subscription you want to use:
-
-    ```azurecli
-    az account set --subscription 36b403cf-b8b6-4084-9c7c-26f0062388f5
-    ```
-
-1. (Skip if you're using an existing resource group) Run the following Azure CLI command to create your resource group:
-
-    ```azurecli
-    az group create --name $RG_NAME --location $REGION
-    ```
-
-1. Finally, use the Azure CLI to execute a Bicep deployment script to provision Azure resources in your resource group:
-
-    ```azurecli
-    az deployment group create --resource-group $RG_NAME --template-file "Allfiles/Labs/Shared/deploy-postgresql-server.bicep" --parameters adminLogin=pgAdmin adminLoginPassword=$ADMIN_PASSWORD
-    ```
-
-    The Bicep deployment script provisions the Azure services required to complete this exercise into your resource group. The resources deployed are an Azure Database for PostgreSQL - Flexible Server. The bicep script also creates a database - which can be configured on the commandline as a parameter.
-
-    The deployment typically takes several minutes to complete. You can monitor it from the bash terminal or navigate to the **Deployments** page for the resource group you previously created and observe the deployment progress there.
-
-1. Since the script creates a random name for the PostgreSQL server, you can find the name of the server by running the following command:
-
-    ```azurecli
-    az postgres flexible-server list --query "[].{Name:name, ResourceGroup:resourceGroup, Location:location}" --output table
-    ```
-
-    Write down the name of the server, as you need it to connect to the server later in this exercise.
-
-    > &#128221; You can also find the name of the server in the Azure portal. In the Azure portal, navigate to **Resource groups** and select the resource group you previously created. The PostgreSQL server is listed in the resource group.
-
-### Troubleshooting deployment errors
-
-You might encounter a few errors when running the Bicep deployment script. The most common messages and the steps to resolve them are:
-
-- If you previously ran the Bicep deployment script for this learning path and then deleted the resources, you might receive an error message like the following if you're attempting to rerun the script within 48 hours of deleting the resources:
-
-    ```bash
-    {"code": "InvalidTemplateDeployment", "message": "The template deployment 'deploy' is not valid according to the validation procedure. The tracking id is '4e87a33d-a0ac-4aec-88d8-177b04c1d752'. See inner errors for details."}
-    
-    Inner Errors:
-    {"code": "FlagMustBeSetForRestore", "message": "An existing resource with ID '/subscriptions/{subscriptionId}/resourceGroups/rg-learn-postgresql-ai-eastus/providers/Microsoft.CognitiveServices/accounts/{accountName}' has been soft-deleted. To restore the resource, you must specify 'restore' to be 'true' in the property. If you don't want to restore existing resource, please purge it first."}
-    ```
-
-    If you receive this message, modify the previous `azure deployment group create` command to set the `restore` parameter equal to `true` and rerun it.
-
-- If the selected region is restricted from provisioning specific resources, you must set the `REGION` variable to a different location and rerun the commands to create the resource group and run the Bicep deployment script.
-
-    ```bash
-    {"status":"Failed","error":{"code":"DeploymentFailed","target":"/subscriptions/{subscriptionId}/resourceGroups/{resourceGrouName}/providers/Microsoft.Resources/deployments/{deploymentName}","message":"At least one resource deployment operation failed. Please list deployment operations for details. Please see https://aka.ms/arm-deployment-operations for usage details.","details":[{"code":"ResourceDeploymentFailure","target":"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}","message":"The resource write operation failed to complete successfully, because it reached terminal provisioning state 'Failed'.","details":[{"code":"RegionIsOfferRestricted","message":"Subscriptions are restricted from provisioning in this region. Please choose a different region. For exceptions to this rule please open a support request with Issue type of 'Service and subscription limits'. See https://review.learn.microsoft.com/en-us/azure/postgresql/flexible-server/how-to-request-quota-increase for more details."}]}]}}
-    ```
-
-- If the lab requires AI resources, you might get the following error. This error occurs when the script is unable to create an AI resource due to the requirement to accept the responsible AI agreement. If that is the case, use the Azure portal user interface to create an Azure AI Services resource, and then rerun the deployment script.
-
-    ```bash
-    {"code": "InvalidTemplateDeployment", "message": "The template deployment 'deploy' is not valid according to the validation procedure. The tracking id is 'f8412edb-6386-4192-a22f-43557a51ea5f'. See inner errors for details."}
-     
-    Inner Errors:
-    {"code": "ResourceKindRequireAcceptTerms", "message": "This subscription cannot create TextAnalytics until you agree to Responsible AI terms for this resource. You can agree to Responsible AI terms by creating a resource through the Azure Portal then trying again. For more detail go to https://go.microsoft.com/fwlink/?linkid=2164190"}
-    ```
-
 ## Connect to the PostgreSQL extension in Visual Studio Code
 
 In this section, you connect to the PostgreSQL server using the PostgreSQL extension in Visual Studio Code. You use the PostgreSQL extension to run SQL scripts against the PostgreSQL server.
@@ -164,12 +48,12 @@ In this section, you connect to the PostgreSQL server using the PostgreSQL exten
 
     1. In the **NEW CONNECTION** dialog box, enter the following information:
 
-        - **Server name**: `<your-server-name>`.postgres.database.azure.com
+        - **Server name**: psql-learn-westus3-kcooniaz5euiw.postgres.database.azure.com
         - **Authentication type**: Password
         - **User name**: pgAdmin
         - **Password**: pgAdmin123PASSWORD
         - Check the **Save password** checkbox.
-        - **Connection name**: `<your-server-name>`
+        - **Connection name**: psql-learn-westus3-kcooniaz5euiw
 
     1. Test the connection by selecting **Test Connection**. If the connection is successful, select **Save & Connect** to save the connection, otherwise review the connection information, and try again.
 
