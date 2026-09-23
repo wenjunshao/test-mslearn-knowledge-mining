@@ -167,7 +167,7 @@ In this section, you connect to the PostgreSQL server using the PostgreSQL exten
         - **Server name**: `<your-server-name>`.postgres.database.azure.com
         - **Authentication type**: Password
         - **User name**: pgAdmin
-        - **Password**: The random password you previously generated.
+        - **Password**: pgAdmin123PASSWORD
         - Check the **Save password** checkbox.
         - **Connection name**: `<your-server-name>`
 
