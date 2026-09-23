@@ -48,12 +48,12 @@ In this section, you connect to the PostgreSQL server using the PostgreSQL exten
 
     1. In the **NEW CONNECTION** dialog box, enter the following information:
 
-        - **Server name**: psql-learn-westus3-kcooniaz5euiw.postgres.database.azure.com
+        - **Server name**: psql-learn-westus3-k2qwer.postgres.database.azure.com
         - **Authentication type**: Password
         - **User name**: pgAdmin
-        - **Password**: pgAdmin123PASSWORD
+        - **Password**: ADMIN_PASSWORD123
         - Check the **Save password** checkbox.
-        - **Connection name**: psql-learn-westus3-kcooniaz5euiw
+        - **Connection name**: psql-learn-westus3-k2qwer
 
     1. Test the connection by selecting **Test Connection**. If the connection is successful, select **Save & Connect** to save the connection, otherwise review the connection information, and try again.
 
@@ -141,22 +141,4 @@ In this section, you explore some of the built-in functions available in Postgre
 
 1. Highlight and run each function to see how it works. For more information, review the [online documentation](https://www.postgresql.org/docs/current/functions.html) article for information about each function.
 
-## Clean-Up
 
-1. If you don't need this PostgreSQL server anymore for other exercises, to avoid incurring unnecessary Azure costs, delete the resource group created in this exercise.
-
-1. If you want to keep the PostgreSQL server running, you can leave it running. If you don't want to leave it running, you can stop the server to avoid incurring unnecessary costs in the bash terminal. To stop the server, run the following command:
-
-    ```azurecli
-    az postgres flexible-server stop --name <your-server-name> --resource-group $RG_NAME
-    ```
-
-    Replace `<your-server-name>` with the name of your PostgreSQL server.
-
-    > &#128221; You can also stop the server from the Azure portal. In the Azure portal, navigate to **Resource groups** and select the resource group you previously created. Select the PostgreSQL server and then select **Stop** from the menu.
-
-1. If needed, delete the git repository you cloned earlier.
-
-You successfully completed this exercise. You created a couple of stored procedures and executed them. You also created a table-valued function and explored some of the built-in functions available in PostgreSQL.
-
-You can now use these stored procedures and functions in your own PostgreSQL databases to perform various operations on data.
