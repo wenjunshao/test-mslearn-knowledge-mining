@@ -21,11 +21,6 @@ In this and later exercises, you use a Bicep script to deploy the Azure Database
 
 ### Install PostgreSQL extension in the Visual Studio Code
 
-If you don't have Visual Studio Code installed:
-
-1. In a browser, navigate to [Download Visual Studio Code](https://code.visualstudio.com/download) and select the appropriate version for your operating system.
-
-1. Follow the installation instructions for your operating system.
 
 1. Open Visual Studio Code.
 
